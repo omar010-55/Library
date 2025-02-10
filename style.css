@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#theBooks {
+  display: flex;
+}
+
+
+.card {
+  background-color: aqua;
+  flex: 1;
+  border: 1px solid;
+}
+
+#container::before {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000054;
+  position: absolute;
+  opacity: 1;
+}
+
+form#userForm {
+  position: absolute;
+  opacity: 1;
+  background-color: bisque;
+  border: 1px solid;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 40rem;
+  height: 20rem;
+  text-align: center;
+}
