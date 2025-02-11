@@ -11,7 +11,6 @@ function hideForm(e) { // To hide the form
   document.documentElement.style.setProperty("--visible", "hidden")
 }
 
-addBook.addEventListener("click", hideForm) // To hide form after submitting
 
 container.addEventListener("click", hideForm) // The container that hide the form
 
@@ -74,7 +73,6 @@ function addBookToLibrary(theName, theAuthor, theCategory, theSize, theDate, the
 
 
 document.getElementById('userForm').addEventListener('submit', function(event) {
-  document.getElementById("userForm").reset()
   event.preventDefault();
   const formData = new FormData(event.target);
   const name = formData.get('name');
@@ -84,6 +82,7 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
   const date = formData.get('date');
   const red = formData.get('red');
   addBookToLibrary(name, author, category, size, date, red)
+  document.getElementById("userForm").reset()
 });
 
 
