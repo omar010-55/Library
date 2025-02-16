@@ -1,11 +1,20 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: monospace;
 }
 
 :root {
   --opacity: 0;
   --visible: hidden;
+}
+
+body {
+  background-color: #FFCDB2;
+}
+
+button {
+  cursor: pointer;
 }
 
 div#container {
@@ -14,25 +23,82 @@ div#container {
   position: relative;
 }
 
-#theBooks {
-  display: grid;
-  grid-auto-flow: column;
+header {
+  height: 19rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
 }
 
+header h1 {
+  font-family: monospace;
+  font-size: 73px;
+}
+
+header p {
+  font-size: 16px;
+}
+
+button#lol {
+  width: 240px;
+  height: 55px;
+  border: none;
+  border-radius: 5px;
+  background-color: #E5989B;
+  color: white;
+  font-weight: bold;
+  font-size: 27px;
+  letter-spacing: 5px;
+  cursor: pointer;
+}
+
+#theBooks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 370px));
+  grid-auto-rows: minmax(250px, 1fr);
+  padding: 40px 30px;
+  gap: 10px;
+}
 
 .card {
-  background-color: aqua;
+  border: 1px solid #00000047;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #FFB4A2;
+}
+
+.card > * {
   flex: 1;
-  border: 1px solid;
+  display: flex;
+  align-items: center;
+}
+
+.card p:first-of-type {
+  justify-content: space-between;
+}
+
+.card > p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+p#last {
+  gap: 30px;
 }
 
 #container::before {
   content: "";
   display: block;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #00000054;
-  position: absolute;
+  position: fixed;
   opacity: var(--opacity);
   z-index: 2;
   visibility: var(--visible);
@@ -41,13 +107,93 @@ div#container {
 form#userForm {
   position: absolute;
   opacity: var(--opacity);
-  background-color: bisque;
+  background-color: #FFCDB2;
   border: 1px solid;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  width: 40rem;
-  height: 20rem;
+  width: clamp(25rem, 50%, 41rem);
   text-align: center;
   z-index: 3;
+  visibility: var(--visible);
+  padding: 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+form p {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  text-align: right;
+  padding: 4px;
+}
+
+label {
+  display: inline-block;
+  width: 30%;
+  padding: 10px;
+  align-self: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input {
+  font-size: 13px;
+  width: 70%;
+  border: none;
+  height: 35px;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+form#userForm p:nth-child(6) {
+  justify-content: center;
+}
+
+form#userForm p:nth-child(6) input {
+  width: 20px;
+}
+
+form#userForm p:nth-child(6) label {
+  font-size: 15px;
+  width: auto;
+}
+
+form button {
+  width: 17rem;
+  height: 45px;
+  border-radius: 4px;
+  border: none;
+  align-self: center;
+  cursor: pointer;
+  background-color: #E5989B;
+  color: white;
+}
+
+h3 {
+  text-align: center;
+  font-size: 2em;
+  align-self: center;
+}
+
+button#read {
+  width: 90px;
+  height: 25px;
+  border-radius: 15px;
+  border: none;
+  background-color: #A1EEBD;
+  font-weight: bold;
+}
+
+button#remove {
+  width: 90px;
+  height: 25px;
+  border-radius: 15px;
+  border: none;
+  background-color: red;
+  color: white;
+  font-weight: bold;
 }

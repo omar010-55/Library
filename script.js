@@ -3,14 +3,11 @@ const theBooks = document.getElementById("theBooks")
 const formBtn = document.getElementById("lol")
 const addBook = document.getElementById("addbook")
 
-
-
 function hideForm(e) { // To hide the form
   document.documentElement.style.setProperty("--opacity", 0)
   formBtn.style.visibility = "visible"
   document.documentElement.style.setProperty("--visible", "hidden")
 }
-
 
 container.addEventListener("click", hideForm) // The container that hide the form
 
@@ -25,13 +22,8 @@ document.getElementById('userForm').addEventListener("click", (e) => { // To not
   e.stopPropagation()
 })
 
-
 const myLibrary = [  // red is for read , it is like that ;)
-  harry= {name: "harry", author: "omar", category: "mistry", size: "huge", date: "16/4/2025", red: false},
-  oxford= {name: "oxford", author: "ali", category: "scary", size: "small", date: "16/4/2025", red: false},
-  harry= {name: "Apprentice to the Villain", author: "Hannah Nicole Maehrer", category: "Fantasy", size: "huge", date: "16/4/2025", red: false},
-  harry= {name: "harry", author: "omar", category: "mistry", size: "huge", date: "16/4/2025", red: false},
-  harry= {name: "harry", author: "omar", category: "mistry", size: "huge", date: "16/4/2025", red: false}
+
 ]
 
 function Book(name, author, category, size, date, red) {
@@ -45,9 +37,9 @@ function Book(name, author, category, size, date, red) {
 
 function isred(state) { // To change the state of read on creation
   if(state == "true") {
-    return "Has red"
+    return "Has read"
   } else {
-    return "Not red"
+    return "Not read"
   }
 }
 
@@ -71,7 +63,6 @@ function addBookToLibrary(theName, theAuthor, theCategory, theSize, theDate, the
   show()
 }
 
-
 document.getElementById('userForm').addEventListener('submit', function(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
@@ -84,7 +75,6 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
   addBookToLibrary(name, author, category, size, date, red)
   document.getElementById("userForm").reset()
 });
-
 
 function remove(e) { // Remove current item
   console.log(e.currentTarget.className)
@@ -99,7 +89,6 @@ function show() { // To show the new array
   myLibrary.forEach(item => { // To add each array item to the page
       const card =
       `<div class="card">
-        <div class="image"><img src="" alt=""></div>
         <h3>${item.name}</h3>
         <p><span>Author: ${item.author}</span><span>${item.category}</span></p>
         <p>Size: ${item.size}, Date: ${item.date}</p>
@@ -118,6 +107,5 @@ function show() { // To show the new array
     item.addEventListener("click", letsSee)
   })
 }
-
 
 addBook.addEventListener("click", hideForm) // To hide form after submitting
