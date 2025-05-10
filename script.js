@@ -26,13 +26,33 @@ const myLibrary = [  // red is for read , it is like that ;)
 
 ]
 
-function Book(name, author, category, size, date, red) {
-  this.name = name
-  this.author = author
-  this.category = category
-  this.size = size
-  this.date = date
-  this.red = red
+// function Book(name, author, category, size, date, red) {
+//   this.name = name
+//   this.author = author
+//   this.category = category
+//   this.size = size
+//   this.date = date
+//   this.red = red
+// }
+
+class Book{
+  constructor(name, author, category, size, date, red) {
+    this.name = name
+    this.author = author
+    this.category = category
+    this.size = size
+    this.date = date
+    this.red = red
+  }
+  hasRed() {
+    if(this.red == "true") {
+      this.red = "false"
+      show()
+    } else {
+      this.red = "true"
+      show()
+    }
+  }
 }
 
 function isred(state) { // To change the state of read on creation
@@ -43,15 +63,15 @@ function isred(state) { // To change the state of read on creation
   }
 }
 
-Book.prototype.hasRed = function() { // To change the state of read on clicking
-  if(this.red == "true") {
-    this.red = "false"
-    show()
-  } else {
-    this.red = "true"
-    show()
-  }
-}
+// Book.prototype.hasRed = function() { // To change the state of read on clicking
+//   if(this.red == "true") {
+//     this.red = "false"
+//     show()
+//   } else {
+//     this.red = "true"
+//     show()
+//   }
+// }
 
 function letsSee(e) { // To know which one to change its read state
   myLibrary[e.currentTarget.className].hasRed()
