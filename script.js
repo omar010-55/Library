@@ -3,7 +3,14 @@ const theBooks = document.getElementById("theBooks")
 const formBtn = document.getElementById("lol")
 const addBook = document.getElementById("addbook")
 
-function hideForm(e) { // To hide the form
+const theName = document.getElementById("name")
+const theAuthor = document.getElementById("author")
+const theCategory = document.getElementById("category")
+const theSize = document.getElementById("size")
+const theDate = document.getElementById("date")
+
+function hideForm(e) {
+  // To hide the form
   document.documentElement.style.setProperty("--opacity", 0)
   formBtn.style.visibility = "visible"
   document.documentElement.style.setProperty("--visible", "hidden")
@@ -11,19 +18,21 @@ function hideForm(e) { // To hide the form
 
 container.addEventListener("click", hideForm) // The container that hide the form
 
-formBtn.addEventListener("click", (e) => { // The button that show the form and hide itself and the dark filter
-  e.stopPropagation();
-  document.documentElement.style.setProperty("--opacity", 1);
+formBtn.addEventListener("click", (e) => {
+  // The button that show the form and hide itself and the dark filter
+  e.stopPropagation()
+  document.documentElement.style.setProperty("--opacity", 1)
   formBtn.style.visibility = "hidden"
   document.documentElement.style.setProperty("--visible", "visible")
 })
 
-document.getElementById('userForm').addEventListener("click", (e) => { // To not making the container close the form when clicking on the form
+document.getElementById("userForm").addEventListener("click", (e) => {
+  // To not making the container close the form when clicking on the form
   e.stopPropagation()
 })
 
-const myLibrary = [  // red is for read , it is like that ;)
-
+const myLibrary = [
+  // red is for read , it is like that ;)
 ]
 
 function Book(name, author, category, size, date, red) {
@@ -35,16 +44,18 @@ function Book(name, author, category, size, date, red) {
   this.red = red
 }
 
-function isred(state) { // To change the state of read on creation
-  if(state == "true") {
+function isred(state) {
+  // To change the state of read on creation
+  if (state == "true") {
     return "Has read"
   } else {
     return "Not read"
   }
 }
 
-Book.prototype.hasRed = function() { // To change the state of read on clicking
-  if(this.red == "true") {
+Book.prototype.hasRed = function () {
+  // To change the state of read on clicking
+  if (this.red == "true") {
     this.red = "false"
     show()
   } else {
@@ -53,59 +64,132 @@ Book.prototype.hasRed = function() { // To change the state of read on clicking
   }
 }
 
-function letsSee(e) { // To know which one to change its read state
+function letsSee(e) {
+  // To know which one to change its read state
   myLibrary[e.currentTarget.className].hasRed()
 }
 
-function addBookToLibrary(theName, theAuthor, theCategory, theSize, theDate, theRed) {
+function addBookToLibrary(
+  theName,
+  theAuthor,
+  theCategory,
+  theSize,
+  theDate,
+  theRed
+) {
   theName = new Book(theName, theAuthor, theCategory, theSize, theDate, theRed)
   myLibrary.push(theName)
   show()
 }
 
-document.getElementById('userForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const name = formData.get('name');
-  const author = formData.get('author');
-  const category = formData.get('category');
-  const size = formData.get('size');
-  const date = formData.get('date');
-  const red = formData.get('red');
-  addBookToLibrary(name, author, category, size, date, red)
-  document.getElementById("userForm").reset()
-});
+document
+  .getElementById("userForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const name = formData.get("name")
+    const author = formData.get("author")
+    const category = formData.get("category")
+    const size = formData.get("size")
+    const date = formData.get("date")
+    const red = formData.get("red")
 
-function remove(e) { // Remove current item
+    addBookToLibrary(name, author, category, size, date, red)
+    hideForm()
+    document.getElementById("userForm").reset()
+  })
+
+function remove(e) {
+  // Remove current item
   console.log(e.currentTarget.className)
   let i = e.currentTarget.className
   myLibrary.splice(i, 1)
   show()
 }
 
-function show() { // To show the new array
+function show() {
+  // To show the new array
   theBooks.innerHTML = ""
   let id = 0
-  myLibrary.forEach(item => { // To add each array item to the page
-      const card =
-      `<div class="card">
+  myLibrary.forEach((item) => {
+    // To add each array item to the page
+    const card = `<div class="card">
         <h3>${item.name}</h3>
         <p><span>Author: ${item.author}</span><span>${item.category}</span></p>
         <p>Size: ${item.size}, Date: ${item.date}</p>
         <p class="${id}">${isred(item.red)}</p>
         <p id="last"><button id="read" class="${id}">READ</button><button id="remove" class="${id}">REMOVE</button></p>
       </div>`
-      theBooks.innerHTML += card
-      id +=1
-    });
+    theBooks.innerHTML += card
+    id += 1
+  })
   let readBtn = document.querySelectorAll("#read")
   let removeBtn = document.querySelectorAll("#remove")
-  removeBtn.forEach(item => { // Its array because its more than one
+  removeBtn.forEach((item) => {
+    // Its array because its more than one
     item.addEventListener("click", remove)
   })
-  readBtn.forEach(item => { // Its array because its more than one
+  readBtn.forEach((item) => {
+    // Its array because its more than one
     item.addEventListener("click", letsSee)
   })
 }
 
-addBook.addEventListener("click", hideForm) // To hide form after submitting
+addBook.addEventListener("click", () => {
+  if (theName.value == "") {
+    showError(theName)
+  } else if (theAuthor.value == "") {
+    showError(theAuthor)
+  } else if (theCategory.value == "") {
+    showError(theCategory)
+  } else if (theSize.value == "") {
+    showError(theSize)
+  } else if (theDate.value == "") {
+    showError(theDate)
+  }
+}) // To hide form after submitting
+
+// form valid
+theName.addEventListener("input", () => {
+  if (theName.validity.valueMissing) {
+    showError(theName)
+  } else {
+    theName.setCustomValidity("")
+  }
+})
+
+theAuthor.addEventListener("input", () => {
+  if (theAuthor.validity.valueMissing) {
+    showError(theAuthor)
+  } else {
+    theAuthor.setCustomValidity("")
+  }
+})
+
+theCategory.addEventListener("input", () => {
+  if (theCategory.validity.valueMissing) {
+    showError(theCategory)
+  } else {
+    theCategory.setCustomValidity("")
+  }
+})
+
+theSize.addEventListener("input", () => {
+  if (theSize.validity.valueMissing) {
+    showError(theSize)
+  } else {
+    theSize.setCustomValidity("")
+  }
+})
+
+theDate.addEventListener("input", () => {
+  if (theDate.validity.valueMissing) {
+    showError(theDate)
+  } else {
+    theDate.setCustomValidity("")
+  }
+})
+
+function showError(theNode) {
+  theNode.setCustomValidity(`Please Put The ${theNode.id} Of The Book!`)
+}
